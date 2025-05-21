@@ -1,10 +1,11 @@
 # RaspiPicoTracer_Prototype_V4
+
+
 RaspiPicoTracerは白線の上をたどって走るロボットであり、
 機能をできる限り少なくし、回路、メカ、組み立て、プログラミングなどロボット作成に必要な経験を一通り短期間で行えるように開発中です。
 このロボットはマイクロマウス大会のロボトレース競技に参加することを想定して作成しています。
 競技の詳細はロボトレース競技規定をご確認ください。
-
-https://www.ntf.or.jp/?page_id=68
+[ロボトレース競技規程](https://www.ntf.or.jp/?page_id=68)
 
 ![RaspiPicoTracer_photo](https://github.com/Yumizu0406/RaspiPicoTracer_Prototype_V4/blob/main/document/figure/photo.png)
 
