@@ -6,6 +6,10 @@ RaspiPicoTracerは白線の上をたどって走るロボットであり、
 
 https://www.ntf.or.jp/?page_id=68
 
+![RaspiPicoTracer_photo](https://github.com/Yumizu0406/RaspiPicoTracer_Prototype_V4/blob/main/document/figure/photo.png)
+
+<br>
+
 # スペック
 | 項目 | 詳細 |
 | ---- | ---- |
