@@ -7,5 +7,5 @@ set(CMAKE_CXX_STANDARD 17)
 
 pico_sdk_init()
 
-add_library(application STATIC control.c dc_motor.c)
+add_library(application STATIC control.c dc_motor.c battery_monitor.c)
 target_link_libraries(application pico_stdlib)

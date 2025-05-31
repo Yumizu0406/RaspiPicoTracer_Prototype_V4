@@ -9,6 +9,7 @@ include
 #include "control.h"
 #include "../driver/lineSensor.h"
 #include "dc_motor.h"
+#include "battery_monitor.h"
 
 /***********************************************************************************************************************
 define and const
@@ -73,6 +74,8 @@ void update_control(void)
 {
     int16_t line_center_deff = get_line_center_deff();
     int16_t ang_control = line_center_deff * (-1);
+
+    update_battery();
 
     if(control_status == switching_to_run){
         control_status = run;

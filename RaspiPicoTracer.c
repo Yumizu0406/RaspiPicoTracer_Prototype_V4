@@ -8,6 +8,7 @@
 #include "driver/adchange.h"
 #include "driver/TB6612FNG.h"
 #include "application/control.h"
+#include "application/battery_monitor.h"
 
 typedef enum{
     selecting_menu = 0,
@@ -47,6 +48,7 @@ int main()
     menu_status = selecting_menu;
 
     stdio_init_all();
+    init_battery();
     init_control();
 
     parameter.speed_at_straight = 500;
