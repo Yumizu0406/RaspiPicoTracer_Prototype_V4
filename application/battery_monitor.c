@@ -104,3 +104,14 @@ uint16_t calculate_trimmed_mean_vattery_voltage(void)
 
 	return (uint16_t)result_uint32;
 }
+
+/***********************************************************************************************************************
+ * Function Name: get_battery_voltage_mV
+ * Description  : バッテリーの電圧値を取得する
+ * Arguments    : none
+ * Return Value : none
+ ***********************************************************************************************************************/
+uint16_t get_battery_voltage_mV(void)
+{
+	return battery_voltage_mV;
+}

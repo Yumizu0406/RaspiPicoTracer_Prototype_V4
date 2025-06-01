@@ -20,5 +20,6 @@ prototype
 ***********************************************************************************************************************/
 void init_battery(void);
 void update_battery(void);
+uint16_t get_battery_voltage_mV(void);
 
 #endif

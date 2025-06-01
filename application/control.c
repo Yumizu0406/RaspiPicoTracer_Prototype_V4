@@ -10,6 +10,7 @@ include
 #include "../driver/lineSensor.h"
 #include "dc_motor.h"
 #include "battery_monitor.h"
+#include <stdint.h>
 
 /***********************************************************************************************************************
 define and const
@@ -23,12 +24,12 @@ global
 static control_status_t control_status;
 static run_mode_t run_mode;
 static control_parameters_t parameters[run_mode_num];
-
+static int32_t pwm_resolution;
 /***********************************************************************************************************************
 prototype
 ***********************************************************************************************************************/
 void set_motor_control(int32_t speed,int16_t angular);
-
+uint32_t calculate_pwm_duty_value_from_vattery_voltage_mV(uint16_t aim_voltage_mV);
 /***********************************************************************************************************************
  * Function Name: init_control
  * Description  : 制御処理初期化処理
@@ -39,6 +40,7 @@ void init_control(void)
 {
     control_status = stop;
     run_mode = trial_run;
+    pwm_resolution = get_dc_motor_pwm_resolution();
 }
 
 /***********************************************************************************************************************
@@ -74,13 +76,16 @@ void update_control(void)
 {
     int16_t line_center_deff = get_line_center_deff();
     int16_t ang_control = line_center_deff * (-1);
+    int32_t pwm_value_at_straight;
 
     update_battery();
+
+    pwm_value_at_straight = calculate_pwm_duty_value_from_vattery_voltage_mV(parameters[run_mode].speed_at_straight);
 
     if(control_status == switching_to_run){
         control_status = run;
     } else if(control_status == run){
-        set_motor_control(parameters[run_mode].speed_at_straight, ang_control);
+        set_motor_control(pwm_value_at_straight, ang_control);
     } else if(control_status == switching_to_stop){
         control_status = stop;
     }
@@ -124,4 +129,24 @@ void set_motor_control(int32_t speed,int16_t angular)
 
     set_speed_dc_motor(Right,control_speed_value_R);
     set_speed_dc_motor(Left, control_speed_value_L);
+}
+
+/***********************************************************************************************************************
+ * Function Name: calculate_pwm_duty_value_from_vattery_voltage_mV
+ * Description  : 目標電圧値に応じたpwm値をバッテリー電圧値から計算する
+ * Arguments    : aim_voltage_mV 目標電圧値
+ * Return Value : none
+ ***********************************************************************************************************************/
+uint32_t calculate_pwm_duty_value_from_vattery_voltage_mV(uint16_t aim_voltage_mV)
+{
+	uint32_t result;
+	uint16_t vattery_voltage_mV;
+	uint32_t tmp_result;
+
+	vattery_voltage_mV = get_battery_voltage_mV();
+
+	tmp_result = (uint32_t)pwm_resolution * (uint32_t)aim_voltage_mV;
+	result = tmp_result / (uint32_t)vattery_voltage_mV;
+
+	return result;
 }
