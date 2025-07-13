@@ -47,6 +47,7 @@ bool cycle_callback_1ms(__unused struct repeating_timer *t)
     update_Raspberry_Pi_LED();
     update_sw();
     update_lineSensor();
+    update_goal_marker_judge_state();
     update_control();
     return true;
 }

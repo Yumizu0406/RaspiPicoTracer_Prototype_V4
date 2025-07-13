@@ -27,4 +27,6 @@ void init_indicators(void);
 void out_indicators(uint8_t value);
 void set_Raspberry_Pi_LED_mode(led_mode_t mode);
 void update_Raspberry_Pi_LED(void);
+
+uint8_t get_goal_marker_count(void);
 #endif

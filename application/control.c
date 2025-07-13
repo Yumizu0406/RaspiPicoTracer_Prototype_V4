@@ -77,16 +77,22 @@ void update_control(void)
     int16_t line_center_deff = get_line_center_deff();
     int16_t ang_control = line_center_deff * (-1);
     int32_t pwm_value_at_straight;
+    uint8_t goalmarker_count = get_goal_marker_count();
 
     update_battery();
 
     pwm_value_at_straight = calculate_pwm_duty_value_from_vattery_voltage_mV(parameters[run_mode].speed_at_straight);
 
     if(control_status == switching_to_run){
+        clear_goal_marker_count();
         control_status = run;
     } else if(control_status == run){
         set_motor_control(pwm_value_at_straight, ang_control);
+        if(2 <= goalmarker_count){
+            control_status = switching_to_stop;
+        }
     } else if(control_status == switching_to_stop){
+        set_motor_control(pwm_value_at_straight, ang_control);
         control_status = stop;
     }
 }
