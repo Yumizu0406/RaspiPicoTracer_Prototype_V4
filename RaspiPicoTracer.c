@@ -116,8 +116,18 @@ void menu_no_3(void)
 {
     bool *line_sensor_value;
     uint8_t line_sensor_index;
+    bool start_goal_marker;
+    bool corner_marker;
 
     line_sensor_value = get_line_sensor_row_value_pointer();
+    corner_marker = get_corner_marker_value();
+    start_goal_marker = get_start_goal_marker_value();
+
+    if(corner_marker == true){
+        printf("1");
+    } else {
+        printf("0");
+    }
 
     for(line_sensor_index = 0; line_sensor_index < 4; line_sensor_index++){
         if(*line_sensor_value == true){
@@ -127,6 +137,13 @@ void menu_no_3(void)
         }
         line_sensor_value++;
     }
+
+    if(start_goal_marker == true){
+        printf("1");
+    } else {
+        printf("0");
+    }
+
     printf("\n");
 }
 

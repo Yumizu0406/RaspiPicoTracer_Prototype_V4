@@ -19,8 +19,8 @@ const uint LINE_SENSOR_0_PIN = 3;
 const uint LINE_SENSOR_1_PIN = 4;
 const uint LINE_SENSOR_2_PIN = 5;
 const uint LINE_SENSOR_3_PIN = 6;
-const uint SG_MARKER_SENSOR_PIN = 2;
-const uint CORNER_MARKER_SENSOR_PIN = 7;
+const uint SG_MARKER_SENSOR_PIN = 7;
+const uint CORNER_MARKER_SENSOR_PIN = 2;
 
 typedef enum{
 	control_timer_goal_marker_recognizing,
@@ -258,4 +258,26 @@ uint8_t get_goal_marker_count(void)
 void clear_goal_marker_count(void)
 {
     goal_marker_count = 0;
+}
+
+/***********************************************************************************************************************
+ * Function Name: get_start_goal_marker_value
+ * Description  : ゴールマーカーセンサ値取得処理
+ * Arguments    : none
+ * Return Value : true:白 false:黒
+ ***********************************************************************************************************************/
+bool get_start_goal_marker_value(void)
+{
+    return start_goal_marker_value;
+}
+
+/***********************************************************************************************************************
+ * Function Name: get_corner_marker_value
+ * Description  : コーナーマーカーセンサ値取得処理
+ * Arguments    : none
+ * Return Value : none
+ ***********************************************************************************************************************/
+bool get_corner_marker_value(void)
+{
+    return corner_marker_value;
 }

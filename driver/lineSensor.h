@@ -25,4 +25,6 @@ bool* get_line_sensor_row_value_pointer(void);
 void update_goal_marker_judge_state(void);
 uint8_t get_goal_marker_count(void);
 void clear_goal_marker_count(void);
+bool get_start_goal_marker_value(void);
+bool get_corner_marker_value(void);
 #endif
