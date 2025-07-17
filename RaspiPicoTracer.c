@@ -9,6 +9,7 @@
 #include "driver/TB6612FNG.h"
 #include "application/control.h"
 #include "application/battery_monitor.h"
+#include "application/dc_motor.h"
 
 typedef enum{
     selecting_menu = 0,
@@ -56,6 +57,8 @@ int main()
     set_control_parameter(trial_run, parameter);
 
     init_driver();
+    set_speed_dc_motor(A, 1);
+    set_speed_dc_motor(B, 1);
 
     while (true) {
         if(menu_status == selecting_menu){
@@ -89,6 +92,12 @@ void init_driver(void)
     init_cycle();
 }
 
+/***********************************************************************************************************************
+ * Function Name: menu_no_0
+ * Description  : EXEスイッチをクリックすると走行開始
+ * Arguments    : none
+ * Return Value : none
+ ***********************************************************************************************************************/
 void menu_no_0(void)
 {
     if(isSwStatus(SW_EXE, click)){
@@ -100,18 +109,40 @@ void menu_no_0(void)
     }
 }
 
+/***********************************************************************************************************************
+ * Function Name: menu_no_1
+ * Description  : センサー状態確認処理
+ *                シリアルモニターでラインセンサーの状態が確認できる
+ * Arguments    : none
+ * Return Value : none
+ ***********************************************************************************************************************/
 void menu_no_1(void)
 {
     printf("sensor = %d\n", get_line_center_deff());
     sleep_ms(500);
 }
 
+/***********************************************************************************************************************
+ * Function Name: menu_no_2
+ * Description  : バッテリー値状態確認処理
+ * Arguments    : none
+ * Return Value : none
+ ***********************************************************************************************************************/
 void menu_no_2(void)
 {
     printf("sensor = %d\n", get_adc_value(3));
     sleep_ms(500);
 }
 
+/***********************************************************************************************************************
+ * Function Name: menu_no_3
+ * Description  : センサー状態確認処理
+ *                シリアルモニターでラインセンサーの状態が確認できる
+ *                0:黒
+ *                1:白
+ * Arguments    : none
+ * Return Value : none
+ ***********************************************************************************************************************/
 void menu_no_3(void)
 {
     bool *line_sensor_value;
@@ -130,10 +161,25 @@ void menu_no_3(void)
     printf("\n");
 }
 
+/***********************************************************************************************************************
+ * Function Name: menu_no_4
+ * Description  : モーター接続確認処理
+ *                スイッチを押した側のモーターが前進する
+ * Arguments    : none
+ * Return Value : none
+ ***********************************************************************************************************************/
 void menu_no_4(void)
 {
-    if(isSwStatus(SW_EXE, click)){
+    if(isSwStatus(SW_EXE, push)){
+        set_speed_dc_motor(A, 500);
+    } else {
+        set_speed_dc_motor(A, 0);
+    }
 
+    if(isSwStatus(SW_NEXT, push)){
+        set_speed_dc_motor(B, 500);
+    } else {
+        set_speed_dc_motor(B, 0);
     }
 }
 
