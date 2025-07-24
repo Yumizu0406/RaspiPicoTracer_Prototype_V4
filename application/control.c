@@ -94,6 +94,8 @@ void update_control(void)
     } else if(control_status == switching_to_stop){
         set_motor_control(pwm_value_at_straight, ang_control);
         control_status = stop;
+    } else if(control_status == stop){
+        set_motor_control(1, 0);
     }
 }
 

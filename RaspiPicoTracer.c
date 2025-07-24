@@ -51,7 +51,7 @@ int main()
     init_battery();
     init_control();
 
-    parameter.speed_at_straight = 500;
+    parameter.speed_at_straight = 650;
     parameter.p_gain_at_straight = 15.0;
     set_control_parameter(trial_run, parameter);
 
