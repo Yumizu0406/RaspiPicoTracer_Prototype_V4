@@ -123,7 +123,7 @@ void menu_no_3(void)
     corner_marker = get_corner_marker_value();
     start_goal_marker = get_start_goal_marker_value();
 
-    if(corner_marker == true){
+    if(start_goal_marker == true){
         printf("1");
     } else {
         printf("0");
@@ -138,7 +138,7 @@ void menu_no_3(void)
         line_sensor_value++;
     }
 
-    if(start_goal_marker == true){
+    if(corner_marker == true){
         printf("1");
     } else {
         printf("0");
