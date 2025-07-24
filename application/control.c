@@ -25,6 +25,7 @@ static control_status_t control_status;
 static run_mode_t run_mode;
 static control_parameters_t parameters[run_mode_num];
 static int32_t pwm_resolution;
+static uint16_t stop_timer;
 /***********************************************************************************************************************
 prototype
 ***********************************************************************************************************************/
@@ -41,6 +42,7 @@ void init_control(void)
     control_status = stop;
     run_mode = trial_run;
     pwm_resolution = get_dc_motor_pwm_resolution();
+    stop_timer = 0u;
 }
 
 /***********************************************************************************************************************
@@ -90,12 +92,19 @@ void update_control(void)
         set_motor_control(pwm_value_at_straight, ang_control);
         if(2 <= goalmarker_count){
             control_status = switching_to_stop;
+            stop_timer = 600u;
         }
     } else if(control_status == switching_to_stop){
         set_motor_control(pwm_value_at_straight, ang_control);
-        control_status = stop;
+        if(stop_timer == 0u){
+            control_status = stop;
+        }
     } else if(control_status == stop){
         set_motor_control(1, 0);
+    }
+
+    if(0u < stop_timer){
+        stop_timer--;
     }
 }
 
